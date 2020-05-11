@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+
+    
+    <head>
+        <style>
+        body{
+            font-family:sans-serif;
+            text-align: center;
+           
+        }
+        img{
+            width:50px;
+          height:50px;
+           border-radius:50px ;
+
+        }
+       
+        td{
+            flex:1
+        }
+       
+     
+        </style>
+        <title>
+            Lists
+        </title>
+    </head>
+    <body>
+        <h1>ACME USER SERCH</h1>
+        <div></div>
+        <!--<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">-->
+        <table id='myTable'>
+
+        </table>
+        
+<script>
+            const renderUser=(users)=>{
+                console.log(users)
+                
+
+                let html= users.map(user =>{
+                    return `
+                    <tr id='myTr'>
+                        <td><img src ='${user.avatar}' /></td>
+                        <td><a>${user.firstName}</a></td>
+                        <td><a>${user.lastName}</a></td>
+                        <td><a>${user.title}</a></td>
+                    </tr>
+                    
+                    `;}).join('');
+                    html=`
+                    <thead>
+                        <tr>
+                            <th>Avatar</th>
+                            <th>First</th>
+                            <th>Last</th>
+                            <th>Title</th>
+                        </tr>
+                    </thead>
+                        <tbody id='myTbody'>${html}</tbody>
+                    `
+                    document.querySelector('table').innerHTML=html;
+                    
+                }
+            
+            const renderSearcher=()=>{
+               /* let Users=users.map(user=>{
+                    return user.firstName;
+                })
+                */
+                let html=''
+                html= `<input type="text" id="myInput" placeholder="Search for names.." title="Type in a name">`
+                document.querySelector('div').innerHTML=html;
+                /*let  word='';
+                   let result=user.firstName;
+                   for(let i=0;i<word.length;i++){
+                   let letter=word[i];
+                    for(let j=0;j<result.length;j++){
+                        if(letter===result[j]){
+                            return result;
+                        }
+                    }
+                }*/
+            }
+            
+                
+            
+            const render=(users)=>{
+                    renderUser(users);
+                    renderSearcher()
+                }
+                //const fetchAndRender =() =>{
+                // let result =window.location.hash.slice(1) || '0';
+                fetch(`https://acme-users-api-rev.herokuapp.com/api/users`)
+            .then(response => response.json())
+            .then(data =>{ render(data.users)})
+               // }
+                //fetchAndRender()
+            
+        </script>
+    </body>
+
+</html>
