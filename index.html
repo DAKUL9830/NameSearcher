@@ -28,7 +28,7 @@
     <body>
         <h1>ACME USER SERCH</h1>
         <div></div>
-        <!--<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">-->
+        
         <table id='myTable'>
 
         </table>
@@ -62,41 +62,92 @@
                     document.querySelector('table').innerHTML=html;
                     
                 }
-            
+               
             const renderSearcher=()=>{
-               /* let Users=users.map(user=>{
-                    return user.firstName;
-                })
-                */
+               
                 let html=''
                 html= `<input type="text" id="myInput" placeholder="Search for names.." title="Type in a name">`
                 document.querySelector('div').innerHTML=html;
-                /*let  word='';
-                   let result=user.firstName;
-                   for(let i=0;i<word.length;i++){
-                   let letter=word[i];
-                    for(let j=0;j<result.length;j++){
-                        if(letter===result[j]){
-                            return result;
-                        }
-                    }
-                }*/
+
+                let input=document.getElementById('myInput')
+                input.addEventListener('input',(e)=>{                          //NOT WORKING!!!!!!!!!!!!!!!!
+                    e.target.value;
+                    fetch(`https://acme-users-api-rev.herokuapp.com/api/users/${e.target.value}`)
+            .then(response => response.json())
+            .then(data =>{ render(data.users)})
+                    
+                })
+              
+               
             }
+           
             
-                
             
+                fetch(`https://acme-users-api-rev.herokuapp.com/api/users/${e.target.value}`)
+            .then(response => response.json())
+            .then(data =>{renderUser(data.users)})
             const render=(users)=>{
                     renderUser(users);
                     renderSearcher()
                 }
-                //const fetchAndRender =() =>{
-                // let result =window.location.hash.slice(1) || '0';
-                fetch(`https://acme-users-api-rev.herokuapp.com/api/users`)
+                
+
+                /*const myTable=document.querySelector('#myTable');
+
+                const state={
+                    searchTerm:'',
+                    employees:[],
+                    count:0
+                }
+
+
+                const thead=document.createElement('thead');
+                const tr=document.createElement('tr');
+                const th1=document.createElement('th')
+                th1.innerText='Avatar';
+                tr.append(th1);
+                const th2=document.createElement('th')
+                th2.innerText='First';
+                tr.append(th2);
+                const th3=document.createElement('th')
+                th3.innerText='Last';
+                tr.append(th3);
+                const th4=document.createElement('th')
+                th4.innerText='Title';
+                tr.append(th4);
+                thead.append(tr);
+                myTable.append(thead);
+
+                const div=document.querySelector('div')
+              
+               const input =document.createElement('input');
+               input.placeholder='search for names...';
+               div.append(input);
+               //const myTable=document.querySelector('#myTable');
+
+               const tbody=document.createElement('tbody');
+               const tr1=document.createElement('tr');
+               const td=document.createElement('td');
+               tr1.append(td);
+               tbody.append(tr1);
+               myTable.append(tbody)
+
+               
+
+
+               fetch(`https://acme-users-api-rev.herokuapp.com/api/users`)
             .then(response => response.json())
-            .then(data =>{ render(data.users)})
-               // }
-                //fetchAndRender()
+            .then(data =>console.log(data))
             
+            const render=(users)=>{
+                users.map(user=>{
+
+                    td.innerText='';
+                    const a =document.createElement('a');
+                    a.innerText=`${user.firstName}`;
+                })
+            }*/
+
         </script>
     </body>
 
